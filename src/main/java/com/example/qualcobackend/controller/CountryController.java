@@ -2,6 +2,7 @@ package com.example.qualcobackend.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,12 +41,12 @@ public class CountryController {
   }
 
   @GetMapping("/search")
-  public ResponseEntity<List<SearchResult>> searchCountryStats(
+  public ResponseEntity<Page<SearchResult>> searchCountryStats(
       @RequestParam(required = false) Integer from,
       @RequestParam(required = false) Integer to,
       @RequestParam(required = false) Integer regionId,
       Pageable pageable) {
-    List<SearchResult> searchResults = countryService.searchCountryStats(from, to, regionId, pageable);
+    Page<SearchResult> searchResults = countryService.searchCountryStats(from, to, regionId, pageable);
     return ResponseEntity.status(HttpStatus.OK).body(searchResults);
   }
 }

@@ -2,6 +2,8 @@ package com.example.qualcobackend.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -32,8 +34,14 @@ public interface CountryRepository extends JpaRepository<CountryEntity, Integer>
       "JOIN regions r ON r.region_id = c.region_id " +
       "JOIN continents cnt ON cnt.continent_id = r.continent_id " +
       "WHERE (:fromYear IS NULL OR cs.year >= :fromYear) AND (:toYear IS NULL OR cs.year <= :toYear) AND (:regionId IS NULL OR r.region_id = :regionId)",
+      countQuery = "SELECT count(*) FROM countries c " +
+          "JOIN country_stats cs ON c.country_id = cs.country_id " +
+          "JOIN regions r ON r.region_id = c.region_id " +
+          "JOIN continents cnt ON cnt.continent_id = r.continent_id " +
+          "WHERE (:fromYear IS NULL OR cs.year >= :fromYear) AND (:toYear IS NULL OR cs.year <= :toYear) AND (:regionId IS NULL OR r.region_id = :regionId)",
       nativeQuery = true)
-  List<SearchResult> fetchSearchResults(@Param("regionId") Integer regionId,
+  Page<SearchResult> fetchSearchResults(@Param("regionId") Integer regionId,
       @Param("fromYear") Integer fromYear,
-      @Param("toYear") Integer toYear);
+      @Param("toYear") Integer toYear,
+      Pageable pageable);
 }

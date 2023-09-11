@@ -3,6 +3,7 @@ package com.example.qualcobackend.service;
 import java.util.List;
 
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class CountryService {
     return countryRepository.fetchAllCountriesWithTheirMaxGdpPerPopulation();
   }
 
-  public List<SearchResult> searchCountryStats(Integer from, Integer to, Integer regionId, Pageable pageable) {
-    return countryRepository.fetchSearchResults(regionId, from, to);
+  public Page<SearchResult> searchCountryStats(Integer from, Integer to, Integer regionId, Pageable pageable) {
+    return countryRepository.fetchSearchResults(regionId, from, to, pageable);
   }
 }
