@@ -4,14 +4,16 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.qualcobackend.model.dto.Country;
 import com.example.qualcobackend.model.dto.CountryStats;
+import com.example.qualcobackend.model.dto.SearchResult;
 import com.example.qualcobackend.model.entity.CountryEntity;
 
 @Repository
-public interface CountryRepository extends JpaRepository<CountryEntity,Integer> {
+public interface CountryRepository extends JpaRepository<CountryEntity, Integer> {
 
   List<Country> findAllByOrderByNameAsc();
 
@@ -23,4 +25,15 @@ public interface CountryRepository extends JpaRepository<CountryEntity,Integer> 
       "FROM country_stats cs_inner " +
       "WHERE cs_inner.country_id = cs.country_id)", nativeQuery = true)
   List<CountryStats> fetchAllCountriesWithTheirMaxGdpPerPopulation();
+
+  @Query(value = "SELECT cnt.name as continentName, r.name as regionName, cs.year, cs.population, cs.gdp, c.name as countryName " +
+      "FROM countries c " +
+      "JOIN country_stats cs ON c.country_id = cs.country_id " +
+      "JOIN regions r ON r.region_id = c.region_id " +
+      "JOIN continents cnt ON cnt.continent_id = r.continent_id " +
+      "WHERE (:fromYear IS NULL OR cs.year >= :fromYear) AND (:toYear IS NULL OR cs.year <= :toYear) AND (:regionId IS NULL OR r.region_id = :regionId)",
+      nativeQuery = true)
+  List<SearchResult> fetchSearchResults(@Param("regionId") Integer regionId,
+      @Param("fromYear") Integer fromYear,
+      @Param("toYear") Integer toYear);
 }

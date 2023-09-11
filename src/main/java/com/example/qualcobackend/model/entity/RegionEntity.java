@@ -1,5 +1,6 @@
 package com.example.qualcobackend.model.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +17,8 @@ import lombok.Setter;
 public class RegionEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer region_id;
+  @Column(name = "region_id")
+  private Integer regionId;
   private String name;
   private Integer continent_id;
 }

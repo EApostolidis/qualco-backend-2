@@ -18,7 +18,5 @@ public class ContinentEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer continent_id;
-
   private String name;
-
 }
