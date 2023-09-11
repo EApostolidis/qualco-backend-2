@@ -1,4 +1,6 @@
-package com.example.qualcobackend.model;
+package com.example.qualcobackend.model.entity;
+
+import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,12 +14,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "country_languages")
-public class CountryLanguageEntity {
-
+@Table(name = "country_stats")
+public class CountryStatEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer country_id;
-  private Integer language_id;
-  private Boolean official;
+  private Integer year;
+  private Integer population;
+  private BigDecimal gdp;
 }

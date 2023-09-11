@@ -1,4 +1,4 @@
-package com.example.qualcobackend.model;
+package com.example.qualcobackend.model.entity;
 
 import java.math.BigDecimal;
 

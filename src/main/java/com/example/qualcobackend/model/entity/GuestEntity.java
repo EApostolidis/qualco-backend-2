@@ -1,4 +1,4 @@
-package com.example.qualcobackend.model;
+package com.example.qualcobackend.model.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,10 +12,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "vips")
-public class VipEntity {
+@Table(name = "guests")
+public class GuestEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer vip_id;
+  private Integer guest_id;
   private String name;
 }

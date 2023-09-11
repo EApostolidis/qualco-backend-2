@@ -1,4 +1,4 @@
-package com.example.qualcobackend.model;
+package com.example.qualcobackend.model.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -21,13 +21,14 @@ public class CountryEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer country_id;
+  @Column(name = "country_id")
+  private Integer countryId;
   private String name;
   private BigDecimal area;
   private LocalDate national_day;
   @Column(name = "country_code2", columnDefinition = "CHAR", insertable = false, updatable = false)
-  private String country_code2;
-  @Column(name = "country_code2", columnDefinition = "CHAR")
-  private String country_code3;
+  private String countryCode2;
+  @Column(name = "country_code3", columnDefinition = "CHAR")
+  private String countryCode3;
   private Integer region_id;
 }
