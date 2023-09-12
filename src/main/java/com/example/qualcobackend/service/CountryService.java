@@ -31,7 +31,10 @@ public class CountryService {
     return countryRepository.fetchAllCountriesWithTheirMaxGdpPerPopulation();
   }
 
-  public Page<SearchResult> searchCountryStats(Integer from, Integer to, Integer regionId, Pageable pageable) {
-    return countryRepository.fetchSearchResults(regionId, from, to, pageable);
+  public Page<SearchResult> searchCountryStats(Integer fromYear, Integer toYear, Integer regionId, Pageable pageable) {
+    if (fromYear != null && toYear != null && fromYear > toYear) {
+      throw new RuntimeException("fromYear must not be greater than toYear");
+    }
+    return countryRepository.fetchSearchResults(regionId, fromYear, toYear, pageable);
   }
 }

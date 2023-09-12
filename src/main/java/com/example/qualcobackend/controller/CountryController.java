@@ -42,11 +42,11 @@ public class CountryController {
 
   @GetMapping("/search")
   public ResponseEntity<Page<SearchResult>> searchCountryStats(
-      @RequestParam(required = false) Integer from,
-      @RequestParam(required = false) Integer to,
+      @RequestParam(required = false) Integer fromYear,
+      @RequestParam(required = false) Integer toYear,
       @RequestParam(required = false) Integer regionId,
       Pageable pageable) {
-    Page<SearchResult> searchResults = countryService.searchCountryStats(from, to, regionId, pageable);
+    Page<SearchResult> searchResults = countryService.searchCountryStats(fromYear, toYear, regionId, pageable);
     return ResponseEntity.status(HttpStatus.OK).body(searchResults);
   }
 }
